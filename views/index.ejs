@@ -2,9 +2,9 @@
 <html lang="en" dir="ltr">
 
 <head>
-  
+
   <meta charset="utf-8">
-  <title> <%= currentDate %> </title>
+  <title> <%= listTitle %> </title>
   <!-- google fonts -->
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <!-- custom styles -->
@@ -16,7 +16,7 @@
   <div class="box">
 
     <div class="item" id="title">
-      <h1> <%= currentDate %> </h1>
+      <h1> <%= listTitle %> </h1>
     </div>
     <% let listLength = todoList.length %>
     <% for (let i = 0; i < listLength; i++) { %>
