@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  
+  <meta charset="utf-8">
+  <title> <%= currentDate %> </title>
+  <!-- google fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <!-- custom styles -->
+  <link rel="stylesheet" href="styles/main.css">
+
+</head>
+
+<body>
+  <div class="box">
+
+    <div class="item" id="title">
+      <h1> <%= currentDate %> </h1>
+    </div>
+    <% let listLength = todoList.length %>
+    <% for (let i = 0; i < listLength; i++) { %>
+
+      <div class="list item">
+
+        <input type="checkbox" name="">
+        <p> <%= todoList[i] %> </p>
+
+      </div>
+
+      <% } %>
+
+      <div class="item" id="input-area">
+
+        <form action="/" method="post">
+
+          <input  type="text" name="newListItem" placeholder="Your Task..." autocomplete="off" required>
+          <button type="submit">+</button>
+
+        </form>
+
+      </div>
+
+  </div>
+
+</body>
+
+</html>
