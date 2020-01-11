@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-// ejs
+// EJS
 app.set('view engine', 'ejs');
 
 // server init
@@ -44,12 +44,6 @@ app.get("/", (req, res) => {
   // converts date to displayable format
   localeDate = day.toLocaleDateString("en-US", dayOptions);
 
-  // renders 'view/index.ejs'
-  // res.render('index', {
-  //   currentDate: localeDate,
-  //   todoList: list
-  // });
-
   todoListRenderer("/", res);
 
 });
@@ -58,14 +52,22 @@ app.post("/", (req, res) => {
 
   let newListItem = req.body.newListItem;
 
-  // add item to the list
-  let arr = addItem(newListItem, list);
+  let arr;
 
-  res.redirect("/");
+  let route = req.body.route;
+
+  // add item to the appropriate list
+  if (route === "work") {
+    arr = addItem(newListItem, work);
+    res.redirect("/work");
+  } else {
+    arr = addItem(newListItem, list);
+    res.redirect("/");
+  }
 
 });
 
-// test serve work route
+// work route
 
 app.get('/work', (req, res) => {
   todoListRenderer("work", res);
@@ -76,12 +78,14 @@ function addItem(listItem, itemArray) {
   return itemArray;
 }
 
+// takes string route and response object res
+
 function todoListRenderer(route, res) {
 
   let title;
   let currentList;
 
-  if(route === '/') {
+  if (route === '/') {
     localeDate = day.toLocaleDateString("en-US", dayOptions);
     title = localeDate;
     currentList = list;
@@ -90,6 +94,7 @@ function todoListRenderer(route, res) {
     currentList = work;
   }
 
+// Embedded JS variables
   let ejsVariables = {
     listTitle: title,
     todoList: currentList
