@@ -15,7 +15,7 @@ let day;
 let dayOptions = {
   weekday: "long",
   month: "long",
-  day: "2-digit"
+  day: "numeric"
 };
 let localeDate;
 
