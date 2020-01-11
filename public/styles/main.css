@@ -22,6 +22,7 @@ body {
   margin: 0 auto;
   min-height: 40px;
   width: 500px;
+  word-break: break-word;
 }
 
 .box {
@@ -54,6 +55,7 @@ body {
 .item p {
   display: inline-block;
   font-size: 2.25rem;
+  padding: 0.25rem;
   margin: 0;
 }
 
@@ -72,13 +74,16 @@ input:checked+p {
 input[type="text"] {
   background: transparent;
   border: none;
+  color: #000;
   font-size: 2rem;
   padding: 0.25rem;
-  color: #000;
+  transition: border .2s;
 }
 
 input[type="text"]:focus {
   outline: none;
+  border-bottom: 1px solid black;
+  transition: border .2s;
 }
 
 button {
@@ -101,4 +106,43 @@ button {
   color: #000;
   font-family: inherit;
   opacity: 100%;
+  text-align: center;
+}
+
+/* mobile devices */
+
+@media screen and (max-width: 650px) {
+
+
+  /* title */
+
+  #title {
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  /* item */
+
+  .item {
+    width: auto;
+  }
+
+
+  .item p {
+    font-size: 1.5rem;
+  }
+
+  button {
+    margin-left: 0;
+    margin-top: 1.5rem;
+  }
+
+  input[type="text"] {
+    font-size: 1.5rem;
+  }
+
+  ::placeholder {
+    font-size: 1.5rem;
+  }
+  
 }
