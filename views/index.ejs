@@ -1,48 +1,35 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<%- include('header'); -%>
+<div class="box">
 
-<head>
+  <div class="item" id="title">
+    <h1> <%= listTitle %> </h1>
+  </div>
 
-  <meta charset="utf-8">
-  <title> <%= listTitle %> </title>
-  <!-- google fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-  <!-- custom styles -->
-  <link rel="stylesheet" href="styles/main.css">
+  <% let listLength = todoList.length %>
+  <% for (let i = 0; i < listLength; i++) { %>
 
-</head>
+  <div class="list item">
 
-<body>
-  <div class="box">
-
-    <div class="item" id="title">
-      <h1> <%= listTitle %> </h1>
-    </div>
-    <% let listLength = todoList.length %>
-    <% for (let i = 0; i < listLength; i++) { %>
-
-      <div class="list item">
-
-        <input type="checkbox" name="">
-        <p> <%= todoList[i] %> </p>
-
-      </div>
-
-      <% } %>
-
-      <div class="item" id="input-area">
-
-        <form action="/" method="post">
-
-          <input  type="text" name="newListItem" placeholder="Your Task..." autocomplete="off" required>
-          <button type="submit" name="route" value=<%= listTitle %>>+</button>
-
-        </form>
-
-      </div>
+    <input type="checkbox" name="">
+    <p> <%= todoList[i] %> </p>
 
   </div>
 
-</body>
+  <% } %>
 
-</html>
+  <div class="item" id="input-area">
+
+    <form action="/" method="post">
+
+      <input type="text" name="newListItem" placeholder="Your Task..." autocomplete="off" required>
+      <button type="submit" name="route" value=<%= listTitle %>>+</button>
+
+    </form>
+
+  </div>
+
+
+</div>
+
+
+<%- include('footer'); -%>
