@@ -21,6 +21,7 @@ let localeDate;
 
 //test comment
 
+//comment from master branch
 
 // static folder
 app.use(express.static("public"));
