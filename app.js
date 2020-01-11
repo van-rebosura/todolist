@@ -52,16 +52,14 @@ app.post("/", (req, res) => {
 
   let newListItem = req.body.newListItem;
 
-  let arr;
-
   let route = req.body.route;
 
   // add item to the appropriate list
   if (route === "work") {
-    arr = addItem(newListItem, work);
+    addItem(newListItem, work);
     res.redirect("/work");
   } else {
-    arr = addItem(newListItem, list);
+    addItem(newListItem, list);
     res.redirect("/");
   }
 
@@ -75,7 +73,6 @@ app.get('/work', (req, res) => {
 
 function addItem(listItem, itemArray) {
   itemArray.push(listItem);
-  return itemArray;
 }
 
 // takes string route and response object res
