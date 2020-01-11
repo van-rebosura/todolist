@@ -48,6 +48,7 @@ app.get("/", (req, res) => {
 
 });
 
+// triggered when plus button is clicked
 app.post("/", (req, res) => {
 
   let newListItem = req.body.newListItem;
@@ -66,7 +67,6 @@ app.post("/", (req, res) => {
 });
 
 // work route
-
 app.get('/work', (req, res) => {
   todoListRenderer("work", res);
 });
@@ -76,6 +76,7 @@ function addItem(listItem, itemArray) {
 }
 
 // takes string route and response object res
+// does the view rendering using ejs
 
 function todoListRenderer(route, res) {
 
