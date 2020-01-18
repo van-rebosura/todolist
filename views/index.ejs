@@ -6,17 +6,17 @@
     <h1> <%= listTitle %> </h1>
   </div>
 
-  <% let listLength = todoList.length %>
-  <% for (let i = 0; i < listLength; i++) { %>
 
-  <div class="list item">
+  <% todoList.forEach((item) => { %>
 
-    <input type="checkbox" name="">
-    <p> <%= todoList[i] %> </p>
+    <div class="list item">
 
-  </div>
+      <input type="checkbox" name="">
+      <p> <%= item.name %> </p>
 
-  <% } %>
+    </div>
+  <% }) %>
+
 
   <div class="item" id="input-area">
 

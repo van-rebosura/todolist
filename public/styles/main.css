@@ -40,6 +40,10 @@ body {
   color: #fff;
 }
 
+#title h1 {
+  margin: 1rem;
+}
+
 /* item */
 
 .item:nth-child(2) {
@@ -54,7 +58,7 @@ body {
 
 .item p {
   display: inline-block;
-  font-size: 2.25rem;
+  font-size: 1.75rem;
   padding: 0.25rem;
   margin: 0;
 }
@@ -144,5 +148,5 @@ button {
   ::placeholder {
     font-size: 1.5rem;
   }
-  
+
 }
