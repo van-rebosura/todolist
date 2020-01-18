@@ -9,12 +9,16 @@
 
   <% todoList.forEach((item) => { %>
 
-    <div class="list item">
+    <form id="deleteForm" action="/delete" method="post">
 
-      <input type="checkbox" name="">
-      <p> <%= item.name %> </p>
+      <div class="list item">
 
-    </div>
+        <input type="checkbox" name="checkboxItem" value= <%= item._id %> >
+        <p> <%= item.name %> </p>
+
+      </div>
+
+    </form>
   <% }) %>
 
 
@@ -30,5 +34,7 @@
   </div>
 
 </div>
+
+<script src="scripts/checkbox.js" charset="utf-8"></script>
 
 <%- include('footer'); -%>

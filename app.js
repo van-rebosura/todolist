@@ -67,7 +67,6 @@ const Item = new mongoose.model('Item', itemSchema);
 // root route
 app.get("/", (req, res) => {
 
-  day = new Date();
 
   // check if todolist has contents
 
@@ -85,6 +84,7 @@ app.get("/", (req, res) => {
           console.log(err);
         }
       });
+
     }
 
       let ejsVariables = {
@@ -95,10 +95,9 @@ app.get("/", (req, res) => {
       res.render('index', ejsVariables);
   });
 
+  // day = new Date();
   // converts date to displayable format
   // localeDate = day.toLocaleDateString("en-US", dayOptions);
-
-
 
 });
 
@@ -112,52 +111,22 @@ app.post("/", (req, res) => {
 
   let route = req.body.route;
 
-  // add item to the appropriate list
-  if (route === "work") {
-    // addItem(newListItem, work);
-    res.redirect("/work");
-  } else {
-    // addItem(newListItem, list);
-
-    res.redirect("/");
-  }
+  res.redirect("/");
 
 });
 
-// work route
-app.get('/work', (req, res) => {
-  todoListRenderer("work", res);
+// delete action
+
+app.post("/delete", (req, res) => {
+  const itemId = (req.body.checkboxItem);
+
+  Item.findOneAndDelete(itemId, (err) => {
+    if(!err) {
+      res.redirect("/");
+    }
+  });
+
 });
-
-
-
-// takes string route and response object res
-// does the view rendering using ejs
-
-function todoListRenderer(route, res) {
-
-  let title;
-  let currentList;
-
-  if (route === '/') {
-    localeDate = day.toLocaleDateString("en-US", dayOptions);
-    title = localeDate;
-    currentList = list;
-  } else {
-    title = route;
-    currentList = work;
-  }
-
-  // Embedded JS variables
-  let ejsVariables = {
-    listTitle: "Today",
-    todoList: currentList
-  }
-
-  res.render('index', ejsVariables);
-
-}
-
 
 function createItem(name) {
   return new Item({
