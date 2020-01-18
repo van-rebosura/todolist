@@ -5,12 +5,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
+const _ = require('lodash');
 
 
 // express init
 const app = express();
-
-
 
 
 // static folder
@@ -104,36 +103,12 @@ app.get("/", (req, res) => {
 
 });
 
-// default list route
 
-// app.get("/defaultList", (req, res) => {
-//     // check if todolist has contents
-//
-//     Item.find({}, (err, items) => {
-//       if (items.length === 0) {
-//
-//         Item.insertMany(initialItems, (err) => {
-//           if (err) {
-//             console.log(err);
-//           }
-//         });
-//
-//       }
-//
-//       let ejsVariables = {
-//         listId: "root",
-//         listTitle: "Today",
-//         todoList: items
-//       };
-//
-//       res.render('index', ejsVariables);
-//     });
-// });
 
 // custom list route
 
 app.get("/:customListName", (req, res) => {
-  let customListName = req.params.customListName;
+  let customListName = _.capitalize(req.params.customListName);
 
   if (customListName === "defaultList" ) {
     customListName = "Today";
@@ -141,17 +116,12 @@ app.get("/:customListName", (req, res) => {
 
   // check if list exists
 
-  List.findOne({
-    name: customListName
-  }, (err, list) => {
-    if (!err) {
+  List.findOne({name: customListName}, (err, list) => {
 
+    if (!err) {
       if (!list) {
 
         // push list to db
-
-
-
         const newList = createList(customListName);
         newList.save();
 
@@ -181,7 +151,6 @@ app.get("/:customListName", (req, res) => {
 });
 
 
-
 // triggered when plus button is clicked
 app.post("/", (req, res) => {
 
@@ -189,10 +158,21 @@ app.post("/", (req, res) => {
   const listName = req.body.listName;
   const newListItem = req.body.newListItem;
   const item = createItem(newListItem);
-  // item.save();
 
-  List.findOneAndUpdate({_id: listId}, {$push: {items: item}}, (err) => {
-    res.redirect("/" + listName);
+  // List.findOneAndUpdate({"_id": listId}, {$push: {items: item}}, (err) => {
+  //   res.redirect("/" + listName);
+  // });
+
+  List.findOne({"_id": listId}, (err, foundList) => {
+    if(err) {
+      console.log(err);
+    } else {
+      if(foundList) {
+        foundList.items.push(item);
+        foundList.save();
+        res.redirect("/" + listName);
+      }
+    }
   });
 
 
@@ -201,11 +181,19 @@ app.post("/", (req, res) => {
 // delete action
 
 app.post("/delete", (req, res) => {
-  const itemId = (req.body.checkboxItem);
+  const listId = req.body.listId;
+  const listName = req.body.listName;
+  const itemId = req.body.itemId;
 
-  Item.findOneAndDelete(itemId, (err) => {
-    if (!err) {
-      res.redirect("/");
+  console.log(req.body);
+
+  console.log(listId, listName, itemId);
+
+  List.findOneAndUpdate({"_id": listId}, {$pull: {items: {"_id": itemId}}}, (err, result) => {
+    if(err) {
+      console.log(err);
+    } else {
+      res.redirect("/" + listName);
     }
   });
 

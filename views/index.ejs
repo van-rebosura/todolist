@@ -9,12 +9,14 @@
 
   <% todoList.forEach((item) => { %>
 
-    <form id="deleteForm" action="/delete" method="post">
+    <form class="" action="/delete" method="post">
 
       <div class="list item">
 
+        <input type="hidden" name="listName" value=<%= listTitle %>>
         <input type="hidden" name="listId" value= <%= listId %>>
-        <input type="checkbox" name="checkboxItem" value= <%= item._id %>>
+        <input type="hidden" name="itemId" value= <%= item._id %>>
+        <input type="checkbox" name="checkboxItem"> 
         <p> <%= item.name %> </p>
 
       </div>
