@@ -35,13 +35,17 @@ let mongoOptions = {
   useUnifiedTopology: true
 };
 
-mongoose.connect('mongodb://localhost:27017/todolistDB', mongoOptions, (err) => {
+let mongodbConnection = "mongodb+srv://admin:admin@todolistdb-22zmr.gcp.mongodb.net/todoListDB";
+
+mongoose.connect(mongodbConnection, mongoOptions, (err) => {
   if (err) {
     console.log(err);
   } else {
     console.log('connection to db successful');;
   }
 });
+
+mongoose.set('useFindAndModify', false);
 
 // item schema
 
@@ -185,9 +189,6 @@ app.post("/delete", (req, res) => {
   const listName = req.body.listName;
   const itemId = req.body.itemId;
 
-  console.log(req.body);
-
-  console.log(listId, listName, itemId);
 
   List.findOneAndUpdate({"_id": listId}, {$pull: {items: {"_id": itemId}}}, (err, result) => {
     if(err) {
